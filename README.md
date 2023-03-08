@@ -6,7 +6,9 @@
 - CRU* users (sign up & settings page - no deleting required)
 - CRUD Articles
 - GET and display lists of articles
+
   *Not implement yet:*
+
 - CR*D Comments on articles (no updating required) 
 - Favorite articles
 - Follow other users
