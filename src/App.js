@@ -1,57 +1,44 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import React, { useEffect } from 'react';
+import { HashRouter, Link, Route, Routes } from "react-router-dom"
+import Header from "./features/header"
+import Home from "./features/home"
+import Auth from "./features/auth"
+import Settings from './features/settings';
+import Article from './features/article';
+import Editor from './features/editor';
+import { useDispatch } from 'react-redux';
+import { getUserToken } from './features/auth/authSlice';
+import agent from './common/agent';
+
 
 function App() {
+  const dispatch = useDispatch()
+  useEffect(() => {
+    const token = window.localStorage.getItem("jwt")
+    dispatch(getUserToken(token))
+    agent.setToken(token)
+  }, [])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
+    <HashRouter>
+      <Header />
+      <Routes>
+        <Route exact path="/" element={<Home />} />
+        <Route path="/login" element={<Auth isRegistered />} />
+        <Route path="/register" element={<Auth />} />
+        <Route path="/editor" element={<Editor />} />
+        <Route path="/settings" element={<Settings />} />
+        <Route path="/article/:slug" element={<Article />} />
+      </Routes>
+      <footer>
+        <div class="container">
+          <Link to="/" >conduit</Link>
+          <span class="attribution">
+            An interactive learning project from <a href="https://thinkster.io">Thinkster</a>. Code &amp;
+            design licensed under MIT.
+          </span>
+        </div>
+      </footer>
+    </HashRouter>
   );
 }
 
