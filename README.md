@@ -1,4 +1,4 @@
-# My practice implementation of [Conduct](https://github.com/gothinkster/realworld) (Medium.com clone) 
+# My practical implementation of [Conduit](https://github.com/gothinkster/realworld) (Medium.com clone) 
 
 **General functionality:**
 
